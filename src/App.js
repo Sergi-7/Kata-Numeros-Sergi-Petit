@@ -1,24 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Container from "./Components/Container/Container.js";
+import { useState } from "react";
+import Button from "./Components/Container/Button";
 
 function App() {
+  const [numbers, setNumbers] = useState([0, 1, 2, 3, 4]);
+
+  const increaseNumbers = () => {
+    if (numbers[numbers.length - 1] < 20) {
+      return setNumbers(numbers.map((number) => number + 1));
+    }
+  };
+
+  const decreaseNumbers = () => {
+    if (numbers[0] > 0) {
+      return setNumbers(numbers.map((number) => number - 1));
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Button text={"<< back"} actionOnclick={decreaseNumbers}></Button>
+
+      {numbers.map((number) => {
+        return <Container text={number} className={"item"}></Container>;
+      })}
+
+      <Button text={"next >>"} actionOnclick={increaseNumbers}></Button>
+    </>
   );
 }
 
